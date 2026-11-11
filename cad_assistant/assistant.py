@@ -6,6 +6,8 @@ still works offline.
 
     cad-assistant --facts examples/ -a shaft_stack -q "in which order can I take it apart?"
     cad-assistant --step my_assembly.step            # computes the facts, then opens a REPL
+    cad-assistant --fusion <root>/<id>/assembly.json  # Fusion 360 Gallery, with annotated joints
+    cad-assistant --automate <id>.json --step-dir <steps>   # AutoMate, with its mates
 """
 from __future__ import annotations
 
@@ -115,9 +117,16 @@ class Assistant:
 
 
 def _load_index(a) -> AssemblyIndex:
-    if a.step:
-        from .facts import facts_from_step
-        facts = facts_from_step(a.step)
+    if a.step or a.fusion or a.automate:
+        from . import facts as F
+        if a.step:
+            facts = F.facts_from_step(a.step)
+        elif a.fusion:
+            facts = F.facts_from_fusion(a.fusion)
+        else:
+            if not a.step_dir:
+                raise SystemExit("--automate needs --step-dir")
+            facts = F.facts_from_automate(a.automate, a.step_dir)
         if a.save_facts:
             Path(a.save_facts).write_text(json.dumps(facts, indent=2), encoding="utf-8")
         return AssemblyIndex([facts])
@@ -129,7 +138,10 @@ def main(argv=None):
     src = ap.add_mutually_exclusive_group()
     src.add_argument("--facts", default="examples", help="folder of facts JSON files")
     src.add_argument("--step", help="compute the facts of a STEP file first (needs pythonocc-core)")
-    ap.add_argument("--save-facts", help="with --step: also write the facts to this JSON file")
+    src.add_argument("--fusion", help="Fusion 360 Gallery assembly.json (facts + annotated joints)")
+    src.add_argument("--automate", help="AutoMate assembly JSON (facts + mates); needs --step-dir")
+    ap.add_argument("--step-dir", help="AutoMate part STEP folder")
+    ap.add_argument("--save-facts", help="with --step/--fusion/--automate: also write the facts to this JSON")
     ap.add_argument("-a", "--assembly", help="assembly id")
     ap.add_argument("-q", "--question", help="single question (otherwise interactive)")
     ap.add_argument("--no-llm", action="store_true", help="offline: rule router and tool text")

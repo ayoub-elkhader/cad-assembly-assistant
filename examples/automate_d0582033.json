@@ -1,0 +1,335 @@
+{
+  "id": "automate_d0582033",
+  "parts": [
+    {
+      "id": "MA7hN100Vps9eDagu",
+      "type": "box",
+      "dims": [
+        17.0,
+        5.0,
+        17.0
+      ],
+      "center": [
+        0.0,
+        2.5,
+        0.0
+      ]
+    },
+    {
+      "id": "MwYiofoKMv3xdCiG4",
+      "type": "box",
+      "dims": [
+        19.0,
+        5.0,
+        19.0
+      ],
+      "center": [
+        0.0,
+        12.5,
+        0.0
+      ]
+    },
+    {
+      "id": "MxxfHZC7+olIlaLfV",
+      "type": "box",
+      "dims": [
+        19.0,
+        5.0,
+        19.0
+      ],
+      "center": [
+        0.0,
+        7.5,
+        0.0
+      ]
+    },
+    {
+      "id": "M2vPk/c0L/AdB/H8B",
+      "type": "cylinder",
+      "dims": [
+        15.0,
+        2.0,
+        14.73
+      ],
+      "center": [
+        0.0,
+        11.0,
+        0.14
+      ]
+    },
+    {
+      "id": "MCX8GamQv4l2Hc0b6",
+      "type": "cylinder",
+      "dims": [
+        15.0,
+        2.0,
+        14.73
+      ],
+      "center": [
+        0.0,
+        9.0,
+        -0.14
+      ]
+    },
+    {
+      "id": "MR9e7FjkpUPLXG/pe",
+      "type": "box",
+      "dims": [
+        19.0,
+        5.0,
+        19.0
+      ],
+      "center": [
+        0.0,
+        17.5,
+        0.0
+      ]
+    },
+    {
+      "id": "MY3K0BQazqXjSeAJT",
+      "type": "cylinder",
+      "dims": [
+        15.0,
+        2.0,
+        14.73
+      ],
+      "center": [
+        0.0,
+        19.0,
+        -0.14
+      ]
+    },
+    {
+      "id": "MwxoMc+KWiB+9ipBD",
+      "type": "cylinder",
+      "dims": [
+        12.0,
+        50.0,
+        12.0
+      ],
+      "center": [
+        0.0,
+        25.0,
+        0.0
+      ]
+    }
+  ],
+  "contacts": [
+    [
+      "M2vPk/c0L/AdB/H8B",
+      "MCX8GamQv4l2Hc0b6",
+      "coaxial"
+    ],
+    [
+      "MA7hN100Vps9eDagu",
+      "MwxoMc+KWiB+9ipBD",
+      "coaxial"
+    ],
+    [
+      "MR9e7FjkpUPLXG/pe",
+      "MY3K0BQazqXjSeAJT",
+      "coaxial"
+    ],
+    [
+      "MwYiofoKMv3xdCiG4",
+      "M2vPk/c0L/AdB/H8B",
+      "coaxial"
+    ],
+    [
+      "MwYiofoKMv3xdCiG4",
+      "MCX8GamQv4l2Hc0b6",
+      "coaxial"
+    ],
+    [
+      "MwYiofoKMv3xdCiG4",
+      "MR9e7FjkpUPLXG/pe",
+      "coaxial"
+    ],
+    [
+      "MwYiofoKMv3xdCiG4",
+      "MxxfHZC7+olIlaLfV",
+      "coaxial"
+    ],
+    [
+      "MxxfHZC7+olIlaLfV",
+      "M2vPk/c0L/AdB/H8B",
+      "coaxial"
+    ],
+    [
+      "MxxfHZC7+olIlaLfV",
+      "MCX8GamQv4l2Hc0b6",
+      "coaxial"
+    ]
+  ],
+  "joints": [
+    {
+      "name": "Planar 1",
+      "parts": [
+        "MY3K0BQazqXjSeAJT",
+        "MR9e7FjkpUPLXG/pe"
+      ],
+      "type": "Planar"
+    },
+    {
+      "name": "Cylindrical 2",
+      "parts": [
+        "MxxfHZC7+olIlaLfV",
+        "MCX8GamQv4l2Hc0b6"
+      ],
+      "type": "Cylindrical"
+    },
+    {
+      "name": "Cylindrical 6",
+      "parts": [
+        "M2vPk/c0L/AdB/H8B",
+        "MwxoMc+KWiB+9ipBD"
+      ],
+      "type": "Cylindrical"
+    },
+    {
+      "name": "Planar 2",
+      "parts": [
+        "MA7hN100Vps9eDagu",
+        "MwxoMc+KWiB+9ipBD"
+      ],
+      "type": "Planar"
+    },
+    {
+      "name": "Planar 1",
+      "parts": [
+        "M2vPk/c0L/AdB/H8B",
+        "MwYiofoKMv3xdCiG4"
+      ],
+      "type": "Planar"
+    },
+    {
+      "name": "Cylindrical 2",
+      "parts": [
+        "MwYiofoKMv3xdCiG4",
+        "M2vPk/c0L/AdB/H8B"
+      ],
+      "type": "Cylindrical"
+    },
+    {
+      "name": "Planar 4",
+      "parts": [
+        "M2vPk/c0L/AdB/H8B",
+        "MCX8GamQv4l2Hc0b6"
+      ],
+      "type": "Planar"
+    },
+    {
+      "name": "Cylindrical 7",
+      "parts": [
+        "MR9e7FjkpUPLXG/pe",
+        "MwxoMc+KWiB+9ipBD"
+      ],
+      "type": "Cylindrical"
+    },
+    {
+      "name": "Cylindrical 4",
+      "parts": [
+        "MA7hN100Vps9eDagu",
+        "MwxoMc+KWiB+9ipBD"
+      ],
+      "type": "Cylindrical"
+    },
+    {
+      "name": "Planar 3",
+      "parts": [
+        "MxxfHZC7+olIlaLfV",
+        "MA7hN100Vps9eDagu"
+      ],
+      "type": "Planar"
+    },
+    {
+      "name": "Planar 5",
+      "parts": [
+        "MR9e7FjkpUPLXG/pe",
+        "MwYiofoKMv3xdCiG4"
+      ],
+      "type": "Planar"
+    },
+    {
+      "name": "Cylindrical 2",
+      "parts": [
+        "MR9e7FjkpUPLXG/pe",
+        "MY3K0BQazqXjSeAJT"
+      ],
+      "type": "Cylindrical"
+    },
+    {
+      "name": "Cylindrical 1",
+      "parts": [
+        "MCX8GamQv4l2Hc0b6",
+        "MwxoMc+KWiB+9ipBD"
+      ],
+      "type": "Cylindrical"
+    },
+    {
+      "name": "Planar 1",
+      "parts": [
+        "MCX8GamQv4l2Hc0b6",
+        "MxxfHZC7+olIlaLfV"
+      ],
+      "type": "Planar"
+    }
+  ],
+  "plan": {
+    "MA7hN100Vps9eDagu": [
+      -0.055,
+      -51.648,
+      0.302
+    ],
+    "MwYiofoKMv3xdCiG4": [
+      -7.077,
+      -58.864,
+      32.14
+    ],
+    "MxxfHZC7+olIlaLfV": [
+      7.132,
+      -51.941,
+      -30.765
+    ],
+    "M2vPk/c0L/AdB/H8B": [
+      13.481,
+      -42.399,
+      2.549
+    ],
+    "MCX8GamQv4l2Hc0b6": [
+      -13.481,
+      -42.463,
+      -0.997
+    ],
+    "MR9e7FjkpUPLXG/pe": [
+      -0.0,
+      55.458,
+      0.164
+    ],
+    "MY3K0BQazqXjSeAJT": [
+      -0.0,
+      42.47,
+      -0.66
+    ],
+    "MwxoMc+KWiB+9ipBD": [
+      0.0,
+      105.809,
+      0.117
+    ]
+  },
+  "verified": true,
+  "disassembly": {
+    "feasible": true,
+    "order": [
+      "MA7hN100Vps9eDagu",
+      "MCX8GamQv4l2Hc0b6",
+      "MR9e7FjkpUPLXG/pe",
+      "MwxoMc+KWiB+9ipBD",
+      "M2vPk/c0L/AdB/H8B",
+      "MY3K0BQazqXjSeAJT",
+      "MwYiofoKMv3xdCiG4",
+      "MxxfHZC7+olIlaLfV"
+    ],
+    "stuck": []
+  }
+}

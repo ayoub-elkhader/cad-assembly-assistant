@@ -23,7 +23,7 @@ def bot(idx):
 
 
 def test_index_loads_examples(idx):
-    assert idx.ids() == ["caged_cube", "pin_in_plate", "shaft_stack"]
+    assert idx.ids() == ["automate_d0582033", "caged_cube", "pin_in_plate", "shaft_stack"]
     a = idx.get("shaft_stack")
     assert a["nb_parts"] == 5
     assert a["coaxial_groups"] == [sorted(a["part_ids"])]
@@ -64,6 +64,17 @@ def test_joints_are_not_invented(bot):
     assert "no annotated mechanical joint" in r["answer"]
 
 
+def test_annotated_mates_are_reported(bot):
+    r = bot.ask("automate_d0582033", "Which joints are there?")
+    assert "14 annotated joint(s)" in r["answer"] and "cylindrical" in r["answer"]
+
+
+def test_router_handles_automate_part_ids(bot, idx):
+    pid = "MwxoMc+KWiB+9ipBD"
+    r = bot.ask("automate_d0582033", f"What is the size of {pid}?")
+    assert r["tool"] == "part_info" and r["evidence"]["data"]["id"] == pid
+
+
 def test_interpretive_question_offline(bot):
     assert is_interpretive("What is it for?")
     r = bot.ask("pin_in_plate", "What is it for?")
@@ -79,7 +90,7 @@ def test_unknown_assembly_and_part(idx):
 
 def test_offline_evaluation_is_complete(idx):
     r_ok, r_tot, f_ok, f_tot = run(idx)
-    assert r_tot == 30 and r_ok == r_tot
+    assert r_tot == 40 and r_ok == r_tot
     assert f_ok == f_tot
 
 

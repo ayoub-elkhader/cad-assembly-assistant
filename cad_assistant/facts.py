@@ -207,3 +207,49 @@ def facts_from_assembly(aid, assembly, factor=2.0, proposer=None) -> dict:
 def facts_from_step(path, factor=2.0) -> dict:
     from exploded_view_verifier.geometry import load_step_assembly
     return facts_from_assembly(Path(path).stem, load_step_assembly(str(path)), factor)
+
+
+def _joint_type(raw: str) -> str:
+    """'RevoluteJointType' (Fusion) or 'REVOLUTE' / 'PIN_SLOT' (AutoMate) -> 'Revolute', 'PinSlot'."""
+    raw = (raw or "Unknown").replace("JointType", "")
+    if raw.isupper() or "_" in raw:
+        raw = "".join(w.capitalize() for w in raw.lower().split("_"))
+    return raw
+
+
+def _add_names(facts, names):
+    for p in facts["parts"]:
+        if names.get(p["id"]) and names[p["id"]] != p["id"]:
+            p["name"] = names[p["id"]]
+    return facts
+
+
+def facts_from_fusion(assembly_json, factor=2.0) -> dict:
+    """Facts of a Fusion 360 Gallery assembly, with the joints annotated in assembly.json."""
+    from exploded_view_verifier.datasets import load_fusion
+    asm, names = load_fusion(str(assembly_json))
+    facts = _add_names(facts_from_assembly(Path(assembly_json).parent.name, asm, factor), names)
+    data = json.loads(Path(assembly_json).read_text(encoding="utf-8"))
+    joints = data.get("joints") or {}
+    for j in (joints.values() if isinstance(joints, dict) else joints):
+        a, b = j.get("occurrence_one"), j.get("occurrence_two")
+        if a in asm and b in asm:
+            facts["joints"].append({"name": j.get("name", ""), "parts": [a, b],
+                                    "type": _joint_type((j.get("joint_motion") or {}).get("joint_type"))})
+    return facts
+
+
+def facts_from_automate(assembly_json, step_dir, factor=2.0) -> dict:
+    """Facts of an AutoMate assembly, with its mates as annotated joints."""
+    from exploded_view_verifier.datasets import load_automate
+    asm, names = load_automate(str(assembly_json), str(step_dir))
+    facts = _add_names(facts_from_assembly(Path(assembly_json).stem, asm, factor), names)
+    data = json.loads(Path(assembly_json).read_text(encoding="utf-8"))
+    occ_ids = [o.get("id") for o in data.get("occurrences", [])]
+    for m in data.get("mates", []):
+        idx = m.get("occurrences") or []
+        ids = [occ_ids[k] for k in idx if isinstance(k, int) and 0 <= k < len(occ_ids)]
+        if len(ids) == 2 and all(i in asm for i in ids):
+            facts["joints"].append({"name": m.get("name", ""), "parts": ids,
+                                    "type": _joint_type(m.get("mateType"))})
+    return facts

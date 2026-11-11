@@ -9,7 +9,8 @@ from __future__ import annotations
 JOINT_LABEL = {
     "Revolute": "revolute (rotation)", "Slider": "slider (translation)",
     "Cylindrical": "cylindrical", "Planar": "planar", "Ball": "ball",
-    "PinSlot": "pin-slot", "Rigid": "rigid (fixed)",
+    "PinSlot": "pin-slot", "Rigid": "rigid (fixed)", "Fastened": "fastened (fixed)",
+    "Parallel": "parallel",
 }
 
 
@@ -74,10 +75,10 @@ def bom(idx, aid):
     a, err = _need(idx, aid)
     if err:
         return err
-    rows = [{"id": p["id"], "type": p.get("type"), "dims_mm": p.get("dims"),
+    rows = [{"id": p["id"], "name": p.get("name"), "type": p.get("type"), "dims_mm": p.get("dims"),
              "n_contacts": a["degree"].get(p["id"], 0)} for p in a["parts"]]
-    lines = [f"  - {r['id']}: {r['type']}, {_dims(r['dims_mm'])}, {r['n_contacts']} contact(s)"
-             for r in rows]
+    lines = [f"  - {r['id']}" + (f" ({r['name']})" if r["name"] else "")
+             + f": {r['type']}, {_dims(r['dims_mm'])}, {r['n_contacts']} contact(s)" for r in rows]
     return {"ok": True, "tool": "bom", "data": {"parts": rows},
             "text": f"Bill of materials of {aid} ({len(rows)} parts):\n" + "\n".join(lines)}
 
@@ -141,7 +142,9 @@ def joints(idx, aid):
         return {"ok": True, "tool": "joints", "data": {"joints": []},
                 "text": f"Assembly {aid}: no annotated mechanical joint in the data "
                         "(joints are not inferred from geometry)."}
-    lines = [f"  - {j.get('name') or '(unnamed)'}: {JOINT_LABEL.get(j['type'], j['type'])}" for j in js]
+    lines = [f"  - {j.get('name') or '(unnamed)'}: {JOINT_LABEL.get(j['type'], j['type'])}"
+             + (f" between {j['parts'][0]} and {j['parts'][1]}" if len(j.get("parts") or []) == 2 else "")
+             for j in js]
     return {"ok": True, "tool": "joints", "data": {"joints": js},
             "text": f"Assembly {aid}: {len(js)} annotated joint(s):\n" + "\n".join(lines)}
 
