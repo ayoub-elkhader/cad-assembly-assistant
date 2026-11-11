@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  core:
+    # router, tools and evaluation: pure Python, no CAD kernel, no network
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e ".[test]"
+      - run: pytest -v
+      - run: python -m cad_assistant.evaluate --facts examples
+
+  geometry:
+    # facts computed from STEP geometry (pythonocc-core from conda-forge)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          python-version: "3.11"
+          channels: conda-forge
+          channel-priority: strict
+          miniforge-version: latest
+      - run: |
+          conda install -y pythonocc-core=7.9.0 numpy
+          pip install -e ".[step,test]"
+      - run: pytest -v tests/test_facts_from_step.py

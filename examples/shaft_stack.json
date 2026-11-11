@@ -1,0 +1,152 @@
+{
+  "id": "shaft_stack",
+  "parts": [
+    {
+      "id": "base",
+      "type": "plate",
+      "dims": [
+        60.0,
+        60.0,
+        8.0
+      ],
+      "center": [
+        0.0,
+        0.0,
+        4.0
+      ]
+    },
+    {
+      "id": "shaft",
+      "type": "cylinder",
+      "dims": [
+        10.0,
+        10.0,
+        60.0
+      ],
+      "center": [
+        0.0,
+        0.0,
+        28.0
+      ]
+    },
+    {
+      "id": "ring_1",
+      "type": "cylinder",
+      "dims": [
+        24.0,
+        24.0,
+        6.0
+      ],
+      "center": [
+        0.0,
+        0.0,
+        11.0
+      ]
+    },
+    {
+      "id": "ring_2",
+      "type": "cylinder",
+      "dims": [
+        20.0,
+        20.0,
+        6.0
+      ],
+      "center": [
+        0.0,
+        0.0,
+        17.0
+      ]
+    },
+    {
+      "id": "ring_3",
+      "type": "cylinder",
+      "dims": [
+        16.0,
+        16.0,
+        6.0
+      ],
+      "center": [
+        0.0,
+        0.0,
+        23.0
+      ]
+    }
+  ],
+  "contacts": [
+    [
+      "base",
+      "ring_1",
+      "coaxial"
+    ],
+    [
+      "base",
+      "shaft",
+      "coaxial"
+    ],
+    [
+      "ring_1",
+      "ring_2",
+      "coaxial"
+    ],
+    [
+      "ring_2",
+      "ring_3",
+      "coaxial"
+    ],
+    [
+      "shaft",
+      "ring_1",
+      "coaxial"
+    ],
+    [
+      "shaft",
+      "ring_2",
+      "coaxial"
+    ],
+    [
+      "shaft",
+      "ring_3",
+      "coaxial"
+    ]
+  ],
+  "joints": [],
+  "plan": {
+    "base": [
+      0.0,
+      0.0,
+      -170.679
+    ],
+    "shaft": [
+      0.0,
+      0.0,
+      123.454
+    ],
+    "ring_1": [
+      0.0,
+      -0.0,
+      -69.24
+    ],
+    "ring_2": [
+      -16.209,
+      -0.01,
+      58.139
+    ],
+    "ring_3": [
+      16.209,
+      0.01,
+      46.99
+    ]
+  },
+  "verified": true,
+  "disassembly": {
+    "feasible": true,
+    "order": [
+      "base",
+      "ring_1",
+      "ring_2",
+      "ring_3",
+      "shaft"
+    ],
+    "stuck": []
+  }
+}

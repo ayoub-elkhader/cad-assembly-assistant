@@ -1,0 +1,62 @@
+{
+  "id": "pin_in_plate",
+  "parts": [
+    {
+      "id": "plate",
+      "type": "box",
+      "dims": [
+        40.0,
+        40.0,
+        10.0
+      ],
+      "center": [
+        0.0,
+        0.0,
+        5.0
+      ]
+    },
+    {
+      "id": "pin",
+      "type": "cylinder",
+      "dims": [
+        6.0,
+        6.0,
+        40.0
+      ],
+      "center": [
+        0.0,
+        0.0,
+        5.0
+      ]
+    }
+  ],
+  "contacts": [
+    [
+      "plate",
+      "pin",
+      "coaxial"
+    ]
+  ],
+  "joints": [],
+  "plan": {
+    "plate": [
+      0.0,
+      0.0,
+      115.031
+    ],
+    "pin": [
+      0.0,
+      0.0,
+      81.879
+    ]
+  },
+  "verified": true,
+  "disassembly": {
+    "feasible": true,
+    "order": [
+      "pin",
+      "plate"
+    ],
+    "stuck": []
+  }
+}

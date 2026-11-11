@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cad-assembly-assistant"
+version = "0.1.0"
+description = "Question answering on CAD assemblies, grounded in deterministic geometric facts"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Ayoub Elkhader" }]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+llm = ["openai>=1.0"]
+# Computing facts from STEP files also needs pythonocc-core (conda-forge only).
+step = ["exploded-view-verifier @ git+https://github.com/ayoub-elkhader/cad-exploded-view-verifier.git"]
+test = ["pytest>=7"]
+
+[project.scripts]
+cad-assistant = "cad_assistant.assistant:main"
+
+[tool.setuptools]
+packages = ["cad_assistant"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

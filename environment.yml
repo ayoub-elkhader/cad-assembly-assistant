@@ -1,0 +1,10 @@
+name: cad-assistant
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pythonocc-core=7.9.0
+  - numpy
+  - pip
+  - pip:
+      - -e .[step,llm,test]
