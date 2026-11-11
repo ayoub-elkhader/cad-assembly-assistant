@@ -18,6 +18,10 @@ question ──► ROUTING (keyword rules, or optional LLM) ──► determinis
 
 Without an API key everything works offline: the rule router picks the tool, and the answer is the tool's own text.
 
+![Four questions asked offline about the shaft_stack example](docs/offline_session.png)
+
+*Real output of `cad-assistant` in offline mode, without any LLM, on the bundled `shaft_stack` example, rendered as an image. Each answer names the tool that produced it. The last question asks about function: with no LLM, the assistant gives the structural facts and says that no function is recorded.*
+
 ## Facts
 
 An assembly is described by a small JSON *facts* file:
